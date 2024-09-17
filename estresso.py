@@ -35,7 +35,7 @@ def get_daily_progress():
     return np.random.randint(60, 100)
 
 # Set up user information
-name = "Jasmine"
+name = "User"
 st.title(f"Hi, {name}!")
 
 # Adjusted column layout with better spacing (reduce chart width)
