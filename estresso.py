@@ -84,6 +84,11 @@ with col1:
     sensor_data = generate_sensor_data()
     # Plot the Line Chart with custom colors
     st.subheader("Sensor Readings Over the Week")
+    #Constant Sensor Readings Chart
+    current_data = generate_current_data()
+    # creating a single-element container.
+    #st.subheader("Current Sensor Readings")
+    placeholder = st.empty()
     asyncio.run(update_current_data(current_data,placeholder))
     
     # line_chart = alt.Chart(sensor_data.reset_index()).transform_fold(
@@ -113,11 +118,6 @@ with col1:
     )
     st.altair_chart(bar_chart)
 
-    #Constant Sensor Readings Chart
-    current_data = generate_current_data()
-    # creating a single-element container.
-    st.subheader("Current Sensor Readings")
-    placeholder = st.empty()
 
 # Right column: Current Stress Level, Mood Input, and Recommendations
 with col2:
