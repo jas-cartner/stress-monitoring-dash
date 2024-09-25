@@ -84,25 +84,19 @@ with col1:
     sensor_data = generate_sensor_data()
     # Plot the Line Chart with custom colors
     st.subheader("Sensor Readings Over the Week")
-    #Constant Sensor Readings Chart
-    current_data = generate_current_data()
-    # creating a single-element container.
-    #st.subheader("Current Sensor Readings")
-    placeholder = st.empty()
-    asyncio.run(update_current_data(current_data,placeholder))
-    
-    # line_chart = alt.Chart(sensor_data.reset_index()).transform_fold(
-    #     ['Heart Rate', 'Skin Conductance', 'Body Temp'],
-    #     as_=['Sensor', 'Value']
-    # ).mark_line().encode(
-    #     x='Date:T',
-    #     y='Value:Q',
-    #     color=alt.Color('Sensor:N', scale=alt.Scale(range=['#FDD76F', '#D6D0FD', '#202125']))
-    # ).properties(
-    #     width=500,  # reduce the chart width
-    #     height=300
-    # )
-    # st.altair_chart(line_chart)
+
+    line_chart = alt.Chart(sensor_data.reset_index()).transform_fold(
+        ['Heart Rate', 'Skin Conductance', 'Body Temp'],
+        as_=['Sensor', 'Value']
+    ).mark_line().encode(
+        x='Date:T',
+        y='Value:Q',
+        color=alt.Color('Sensor:N', scale=alt.Scale(range=['#FDD76F', '#D6D0FD', '#202125']))
+    ).properties(
+        width=500,  # reduce the chart width
+        height=300
+    )
+    st.altair_chart(line_chart)
 
     # Fetch the cached average stress data
     daily_stress = generate_daily_stress_data()
@@ -118,6 +112,11 @@ with col1:
     )
     st.altair_chart(bar_chart)
 
+    #Constant Sensor Readings Chart
+    current_data = generate_current_data()
+    # creating a single-element container.
+    st.subheader("Current Sensor Readings")
+    placeholder = st.empty()
 
 # Right column: Current Stress Level, Mood Input, and Recommendations
 with col2:
@@ -195,7 +194,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-
+asyncio.run(update_current_data(current_data,placeholder))
 
 # Fetch the cached daily progress
 # st.subheader("Daily Progress")
