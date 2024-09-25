@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import plotly.graph_objects as go
+import asyncio
 
 st.set_page_config(layout="wide")
 
@@ -33,6 +34,42 @@ def get_current_stress_level():
 @st.cache_data
 def get_daily_progress():
     return np.random.randint(60, 100)
+
+@st.cache_data
+def generate_current_data():
+    times = [-60,-50,-40,-30,-20,-10,0]
+    current_data = pd.DataFrame({
+        'Time': times,
+        'Heart Rate': np.random.randint(60, 160, size=7),
+        'Skin Conductance': np.random.randint(50, 100, size=7),
+        'Body Temp': np.random.randint(95, 100, size=7)
+    })
+    return current_data
+
+async def update_current_data(old_data,placeholder):
+    current_data = old_data
+    times = [-60,-50,-40,-30,-20,-10,0]
+    while True: 
+        current_data = current_data.shift(periods=-1, axis=0, fill_value=0)
+        current_data["Time"] = times
+        current_data.loc[6,'Heart Rate'] = current_data.at[5,'Heart Rate'] + np.random.randint(-10, 10)
+        current_data.loc[6,'Skin Conductance'] = current_data.at[5,'Skin Conductance'] + np.random.randint(-10, 10)
+        current_data.loc[6,'Body Temp'] = current_data.at[5,'Body Temp'] + np.random.randint(-10, 10)
+        with placeholder.container():
+            # Plot the Line Chart with custom colors
+            line_chart2 = alt.Chart(current_data.reset_index()).transform_fold(
+                ['Heart Rate', 'Skin Conductance', 'Body Temp'],
+                as_=['Sensor', 'Value']
+            ).mark_line().encode(
+                x='Time:Q',
+                y='Value:Q',
+                color=alt.Color('Sensor:N', scale=alt.Scale(range=['#FDD76F', '#D6D0FD', '#202125']))
+            ).properties(
+                width=500,  # reduce the chart width
+                height=300
+            )
+            st.altair_chart(line_chart2)
+        await asyncio.sleep(1)
 
 # Set up user information
 name = "User"
@@ -74,6 +111,12 @@ with col1:
         height=300
     )
     st.altair_chart(bar_chart)
+
+    #Constant Sensor Readings Chart
+    current_data = generate_current_data()
+    # creating a single-element container.
+    st.subheader("Current Sensor Readings")
+    placeholder = st.empty()
 
 # Right column: Current Stress Level, Mood Input, and Recommendations
 with col2:
@@ -151,8 +194,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-
-
+asyncio.run(update_current_data(current_data,placeholder))
 
 # Fetch the cached daily progress
 # st.subheader("Daily Progress")
