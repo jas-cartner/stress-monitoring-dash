@@ -1,8 +1,6 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
-import time
 import plotly.express as px
 
 # Set the page layout to wide for better UI/UX
@@ -59,43 +57,4 @@ elif menu == "Data":
     weekly_stress = np.random.randint(0, 100, size=7)
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     df_weekly = pd.DataFrame({"Day": days, "Stress Level": weekly_stress})
-    fig_weekly = px.bar(df_weekly, x="Day", y="Stress Level", title="Weekly Stress Overview")
-    st.plotly_chart(fig_weekly)
-
-    # Simulate real-time sensor data (dynamic line chart)
-    st.subheader("Real-Time Sensor Data")
-    sensor_data = pd.DataFrame({"Heart Rate": [], "Skin Conductance": [], "Body Temp": []})
-    line_chart = st.line_chart(sensor_data)
-
-    # Dynamic update of real-time data
-    for _ in range(50):
-        new_data = pd.DataFrame({"Heart Rate": [np.random.randint(60, 100)], 
-                                 "Skin Conductance": [np.random.uniform(0.1, 1.5)], 
-                                 "Body Temp": [np.random.uniform(36.5, 37.5)]})
-        line_chart.add_rows(new_data)
-        time.sleep(1)
-
-# --- Info Screen ---
-elif menu == "Info":
-    st.title("How to Manage Stress")
-
-    st.subheader("Some practical ways to reduce stress:")
-    
-    # Providing stress management strategies with interactive buttons
-    st.write("""
-    - **Breathing Exercises**: Try deep breathing to calm your mind.
-    - **Physical Activity**: Regular exercise can reduce stress.
-    - **Mindfulness**: Practice meditation or yoga.
-    """)
-    
-    # Interactive buttons for more resources
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.button("Breathing Techniques", on_click=lambda: st.write("[Breathing Techniques](https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques)"))
-    with col2:
-        st.button("Mindfulness Tips", on_click=lambda: st.write("[Mindfulness Tips](https://www.mindful.org/how-to-practice-mindfulness/)"))
-    with col3:
-        st.button("Physical Activity Ideas", on_click=lambda: st.write("[Physical Activity](https://www.healthline.com/health/exercise-fitness/best-exercises-to-reduce-stress)"))
-    
-    st.subheader("For more resources, visit:")
-    st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
+    fig_weekly = px.bar(df_weekly, x="Day", y="Stress Level", title="Weekly Stress
