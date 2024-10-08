@@ -6,16 +6,31 @@ import plotly.express as px
 # Set the page layout to wide for better UI/UX
 st.set_page_config(layout="wide", page_title="Stress Monitor", page_icon="🧘‍♀️")
 
-# Sidebar Navigation
+st.markdown("""
+    <style>
+    .stButton button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        background-color: #4CAF50; /* Button color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# Sidebar Navigation with Buttons
 st.sidebar.title("Navigation")
+
+menu = "Main"  # Default screen
+
 if st.sidebar.button("Main"):
     menu = "Main"
 elif st.sidebar.button("Data"):
     menu = "Data"
 elif st.sidebar.button("Info"):
     menu = "Info"
-else:
-    menu = "Main"  # Default page
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
@@ -92,13 +107,13 @@ elif menu == "Info":
     """)
     
     # Interactive buttons for more resources
-    col1, col2, col3 = st.columns(3)
+   col1, col2, col3 = st.columns(3)
     with col1:
-        st.button("Breathing Techniques", on_click=lambda: st.write("[Breathing Techniques](https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques)"))
+        st.markdown('[Breathing Techniques](https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques "Breathing Techniques"){:target="_blank"}', unsafe_allow_html=True)
     with col2:
-        st.button("Mindfulness Tips", on_click=lambda: st.write("[Mindfulness Tips](https://www.mindful.org/how-to-practice-mindfulness/)"))
+        st.markdown('[Mindfulness Tips](https://www.mindful.org/how-to-practice-mindfulness/ "Mindfulness Tips"){:target="_blank"}', unsafe_allow_html=True)
     with col3:
-        st.button("Physical Activity Ideas", on_click=lambda: st.write("[Physical Activity](https://www.healthline.com/health/exercise-fitness/best-exercises-to-reduce-stress)"))
+        st.markdown('[Physical Activity Ideas](https://www.healthline.com/health/exercise-fitness/best-exercises-to-reduce-stress "Physical Activity Ideas"){:target="_blank"}', unsafe_allow_html=True)
     
     st.subheader("For more resources, visit:")
     st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
