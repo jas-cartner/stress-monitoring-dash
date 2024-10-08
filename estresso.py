@@ -12,7 +12,7 @@ st.markdown("""
         width: 100%;
         margin: 5px 0;
         padding: 10px;
-        background-color: #4CAF50; /* Button color */
+        background-color: #AEAEAE; /* Button color */
         color: white;
         border: none;
         border-radius: 5px;
@@ -65,7 +65,7 @@ if menu == "Main":
         st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
     
     # Stress percentage radial bar (placeholder calculation)
-    stress_prediction = np.clip(np.random.randint(0, 5), 0, 100)
+    stress_prediction = np.random.randint(0, 100)
     st.subheader(f"Predicted Stress Level: {stress_prediction}%")
     st.progress(stress_prediction / 100)
 
