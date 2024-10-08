@@ -7,7 +7,15 @@ import plotly.express as px
 st.set_page_config(layout="wide", page_title="Stress Monitor", page_icon="🧘‍♀️")
 
 # Sidebar Navigation
-menu = st.sidebar.radio("Navigation", ["Main", "Data", "Info"])
+st.sidebar.title("Navigation")
+if st.sidebar.button("Main"):
+    menu = "Main"
+elif st.sidebar.button("Data"):
+    menu = "Data"
+elif st.sidebar.button("Info"):
+    menu = "Info"
+else:
+    menu = "Main"  # Default page
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
