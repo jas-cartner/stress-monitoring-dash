@@ -107,7 +107,7 @@ elif menu == "Info":
     """)
     
     # Interactive buttons for more resources
-   col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown('[Breathing Techniques](https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques "Breathing Techniques"){:target="_blank"}', unsafe_allow_html=True)
     with col2:
