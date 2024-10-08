@@ -42,7 +42,7 @@ if menu == "Main":
         st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
     
     # Stress percentage radial bar (placeholder calculation)
-    stress_prediction = np.clip(mood + np.random.randint(0, 5), 0, 100)
+    stress_prediction = np.clip(np.random.randint(0, 5), 0, 100)
     st.subheader(f"Predicted Stress Level: {stress_prediction}%")
     st.progress(stress_prediction / 100)
 
