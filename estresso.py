@@ -24,8 +24,9 @@ if menu == "Main":
     
     # Emoji slider for user to input their current feeling
     mood = st.slider(
-        "Mood", min_value=0, max_value=10, value=5,
-        format="😖  😟  😐  🙂  😃"
+        "Choose your current mood",
+        options=['😊 Happy', '🙂 Okay', '😐 Neutral', '😟 Stressed', '😢 Sad'],
+        value='😐 Neutral'
     )
 
     # Displaying sensor readings with icons
