@@ -23,7 +23,7 @@ if menu == "Main":
     st.subheader("How are you feeling today?")
     
     # Emoji slider for user to input their current feeling
-    mood = st.slider(
+    mood = st.select_slider(
         "Choose your current mood",
         options=['😊 Happy', '🙂 Okay', '😐 Neutral', '😟 Stressed', '😢 Sad'],
         value='😐 Neutral'
