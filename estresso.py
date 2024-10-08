@@ -22,15 +22,14 @@ st.markdown("""
 
 # Sidebar Navigation with Buttons
 st.sidebar.title("Navigation")
-
-menu = "Main"  # Default screen
-
 if st.sidebar.button("Main"):
     menu = "Main"
 elif st.sidebar.button("Data"):
     menu = "Data"
 elif st.sidebar.button("Info"):
     menu = "Info"
+else:
+    menu = "Main"  # Default page
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
