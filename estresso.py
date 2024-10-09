@@ -12,7 +12,7 @@ st.markdown("""
         width: 100%;
         margin: 5px 0;
         padding: 10px;
-        background-color: #AEAEAE; /* Button color */
+        background-color: #4CAF50; /* Button color */
         color: white;
         border: none;
         border-radius: 5px;
@@ -22,14 +22,15 @@ st.markdown("""
 
 # Sidebar Navigation with Buttons
 st.sidebar.title("Navigation")
+
+menu = "Main"  # Default screen
+
 if st.sidebar.button("Main"):
     menu = "Main"
 elif st.sidebar.button("Data"):
     menu = "Data"
 elif st.sidebar.button("Info"):
     menu = "Info"
-else:
-    menu = "Main"  # Default page
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
@@ -64,7 +65,7 @@ if menu == "Main":
         st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
     
     # Stress percentage radial bar (placeholder calculation)
-    stress_prediction = np.random.randint(0, 100)
+    stress_prediction = np.clip(np.random.randint(0, 5), 0, 100)
     st.subheader(f"Predicted Stress Level: {stress_prediction}%")
     st.progress(stress_prediction / 100)
 
@@ -116,4 +117,5 @@ elif menu == "Info":
     
     st.subheader("For more resources, visit:")
     st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
+
 
