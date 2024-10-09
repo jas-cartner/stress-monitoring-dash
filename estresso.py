@@ -12,7 +12,7 @@ st.markdown("""
         width: 100%;
         margin: 5px 0;
         padding: 10px;
-        background-color: #4CAF50; /* Button color */
+        background-color: #A0A0A0; /* Button color */
         color: white;
         border: none;
         border-radius: 5px;
