@@ -20,17 +20,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Sidebar Navigation with Buttons
+# Sidebar Navigation with Radio Buttons
 st.sidebar.title("Navigation")
-
-menu = "Main"  # Default screen
-
-if st.sidebar.button("Main"):
-    menu = "Main"
-elif st.sidebar.button("Data"):
-    menu = "Data"
-elif st.sidebar.button("Info"):
-    menu = "Info"
+menu = st.sidebar.radio("Go to", ["Main", "Data", "Info"])
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
@@ -70,7 +62,7 @@ if menu == "Main":
     st.progress(stress_prediction / 100)
 
     # Link to stress management info
-    st.button("Need help managing stress?", key="info_link", on_click=lambda: st.sidebar.radio("Navigation", ["Info"]))
+    st.button("Need help managing stress?", key="info_link")
 
 # --- Data Screen ---
 elif menu == "Data":
@@ -117,5 +109,3 @@ elif menu == "Info":
     
     st.subheader("For more resources, visit:")
     st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
-
-
