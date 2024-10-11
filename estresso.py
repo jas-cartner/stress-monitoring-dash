@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+from paho.mqtt import client as pahoClient
+from time import sleep
 
 # Set the page layout to wide for better UI/UX
 st.set_page_config(layout="wide", page_title="Stress Monitor", page_icon="🧘‍♀️")
@@ -22,7 +24,7 @@ st.markdown("""
 
 # Sidebar Navigation with Radio Buttons
 st.sidebar.title("Navigation")
-menu = st.sidebar.radio("Go to", ["Main", "Data", "Info"])
+menu = st.sidebar.radio("Go to", ["Main", "Data", "Info", "MQTT"])
 
 # Functions to simulate sensor readings (for demo)
 def get_sensor_data():
@@ -109,3 +111,65 @@ elif menu == "Info":
     
     st.subheader("For more resources, visit:")
     st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
+
+elif menu == "MQTT":
+    st.title("MQTT Testing")
+
+    # requirement to have mosquitto running as the MQTT broker - if not already running in background
+    # "".\mosquiitto.exe -v" in the file location "C:\Program Files\mosquitto"
+
+    broker = 'localhost'
+    port = 1883
+    topic = "python/mqtt"
+    # Generate a Client ID with the subscribe prefix.
+    client_id = f'subscribe-10'
+    # username = 'emqx'
+    # password = 'public'
+
+    MQTT_message = "test"
+    con_message = "test"
+
+    client = pahoClient.Client(client_id=client_id,callback_api_version=pahoClient.CallbackAPIVersion.VERSION2)
+    
+    st.subheader("Connection message")
+    if client.connect(broker, port) != 0:
+        con_message = "Failed to connect"
+    else:
+        con_message = "Connected"
+    st.text(con_message)
+
+    st.subheader("MQTT message")
+    MQTT_textbox = st.empty()
+    st.subheader("Current readings from the rPi:")
+    MQTT_display = st.empty()
+    if con_message == "Connected":
+        def on_message(client, userdata, msg):
+            global MQTT_message
+            MQTT_message = msg.payload.decode()
+
+        client.subscribe(topic)
+        client.on_message = on_message
+        
+        heart_rate = 0
+        skin_conductance = 0
+        body_temp = 0
+
+        while(True):
+            client.loop()
+            MQTT_textbox.text(MQTT_message)
+            MQTTarr = MQTT_message.split(",")
+            if(len(MQTTarr) == 3):
+                heart_rate = int(MQTTarr[0])
+                skin_conductance = float(MQTTarr[1])
+                body_temp = float(MQTTarr[2])
+
+            col1, col2, col3 = MQTT_display.columns(3)
+            with col1:
+                st.metric(label="Heart Rate ❤️", value=f"{heart_rate} bpm")
+            with col2:
+                st.metric(label="Skin Conductance 💧", value=f"{skin_conductance:.2f} µS")
+            with col3:
+                st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
+
+            sleep(1)
+
