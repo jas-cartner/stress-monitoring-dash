@@ -118,19 +118,20 @@ elif menu == "MQTT":
     # requirement to have mosquitto running as the MQTT broker - if not already running in background
     # "".\mosquiitto.exe -v" in the file location "C:\Program Files\mosquitto"
 
-    broker = 'localhost'
+    broker = 'raspberrypi.local'
     port = 1883
     topic = "python/mqtt"
     # Generate a Client ID with the subscribe prefix.
     client_id = f'subscribe-10'
-    # username = 'emqx'
-    # password = 'public'
+    username = 'estresso'
+    password = 'UTS'
 
     MQTT_message = "test"
     con_message = "test"
 
     client = pahoClient.Client(client_id=client_id,callback_api_version=pahoClient.CallbackAPIVersion.VERSION2)
-    
+    client.username_pw_set(username, password)
+
     st.subheader("Connection message")
     if client.connect(broker, port) != 0:
         con_message = "Failed to connect"

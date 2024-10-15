@@ -1,4 +1,7 @@
-# python 3.11
+
+#file to be run on the rPi
+
+#start broker service with 'sudo systemctl start mosquitto'
 
 import random
 import time
@@ -11,8 +14,8 @@ port = 1883
 topic = "python/mqtt"
 # Generate a Client ID with the publish prefix.
 client_id = f'publish-10'
-# username = 'emqx'
-# password = 'public'
+username = 'estresso'
+password = 'UTS'
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc, properties):
@@ -22,7 +25,7 @@ def connect_mqtt():
             print("Failed to connect, return code %d\n", rc)
 
     client = mqtt_client.Client(client_id=client_id,callback_api_version=mqtt_client.CallbackAPIVersion.VERSION2)
-    # client.username_pw_set(username, password)
+    client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.connect(broker, port)
     return client
