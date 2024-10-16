@@ -103,11 +103,11 @@ elif menu == "Info":
     # Interactive buttons for more resources
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown('[Breathing Techniques](https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques "Breathing Techniques"){:target="_blank"}', unsafe_allow_html=True)
+        st.link_button("Breathing Techniques","https://www.webmd.com/balance/stress-management/stress-relief-breathing-techniques")
     with col2:
-        st.markdown('[Mindfulness Tips](https://www.mindful.org/how-to-practice-mindfulness/ "Mindfulness Tips"){:target="_blank"}', unsafe_allow_html=True)
+        st.link_button("Mindfulness Tips","https://www.mindful.org/how-to-practice-mindfulness/")
     with col3:
-        st.markdown('[Physical Activity Ideas](https://www.healthline.com/health/exercise-fitness/best-exercises-to-reduce-stress "Physical Activity Ideas"){:target="_blank"}', unsafe_allow_html=True)
+        st.link_button("Physical Activity Ideas", "(https://www.healthline.com/health/exercise-fitness/best-exercises-to-reduce-stress")
     
     st.subheader("For more resources, visit:")
     st.write("[Mental Health Resources](https://www.mentalhealth.org.uk/)")
