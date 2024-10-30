@@ -70,7 +70,7 @@ if con_message == "Connected":
         with col1:
             st.metric(label="Heart Rate ❤️", value=f"{heart_rate} bpm")
         with col2:
-            st.metric(label="Skin Conductance 💧", value=f"{skin_conductance:.2f} µS")
+            st.metric(label="Skin Conductance 💧", value=f"{skin_conductance:.2f} %")
         with col3:
             st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
 
