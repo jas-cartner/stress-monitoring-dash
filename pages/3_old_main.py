@@ -5,7 +5,7 @@ import plotly.express as px
 
 def get_sensor_data():
     heart_rate = np.random.randint(60, 100)
-    skin_conductance = np.random.uniform(0.1, 1.5)
+    skin_conductance = np.random.uniform(0, 100)
     body_temp = np.random.uniform(36.5, 37.5)
     return heart_rate, skin_conductance, body_temp
     
@@ -28,7 +28,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.metric(label="Heart Rate ❤️", value=f"{heart_rate} bpm")
 with col2:
-    st.metric(label="Skin Conductance 💧", value=f"{skin_conductance:.2f} µS")
+    st.metric(label="Skin Conductance 💧", value=f"{skin_conductance:.2f} %")
 with col3:
     st.metric(label="Body Temperature 🌡️", value=f"{body_temp:.2f} °C")
 
