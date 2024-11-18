@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from paho.mqtt import client as pahoClient
-from time import sleep    
 
 st.title("How to Manage Stress")
 
